@@ -1,11 +1,4 @@
 
-# define the rust function
-dyn.load("welfords.so")
-
-welfords_rs <- function(input, set_size) {
-  .Call("welfords", input, set_size)
-}
-
 # define the R version
 welfords <- function(x, new_value) {
   count <- x[1]
@@ -54,9 +47,19 @@ tibble::tibble(
   dplyr::filter(n != 0)
 }
 
+
+# define the rust function
+dyn.load("welfords.so")
+
+welfords_rs <- function(input, set_size) {
+  .Call("welfords", input, set_size)
+}
 input <- rnorm(10, 0.5, 1)
 set_size <- 5
 
 rust_output <- welfords_rs(input, set_size)
 r_output <- welfords_r(input, set_size)
-testthat::expect_equivalent(rust_output, r_output)
+
+testthat::test_that("testing", {
+  testthat::expect_equal(rust_output, r_output)
+})

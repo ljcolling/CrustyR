@@ -36,7 +36,7 @@ SEXP welfords(SEXP input, SEXP set_size) {
   setAttrib(final_result, R_ClassSymbol, class);
 
   // next the row names
-  SEXP row_names =   PROTECT(allocVector(INTSXP, 2));
+  SEXP row_names = PROTECT(allocVector(INTSXP, 2));
 	INTEGER(row_names)[0] = NA_INTEGER;
 	INTEGER(row_names)[1] = elements;
 	setAttrib(final_result, R_RowNamesSymbol, row_names);
